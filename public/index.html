@@ -11,32 +11,115 @@
     <script defer src="../node_modules/mathjs/lib/browser/math.js" type="text/javascript"></script>
     <script src="../src/reloadTex.js"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <style>
+        .bg-gradient-animated {
+            background: linear-gradient(-45deg, #FFA63D, #FF3D77, #338AFF, #3CF0C5);
+            background-size: 600%;
+            animation: animate-gradient 16s linear infinite;
+        }
+
+        @keyframes animate-gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="container p-5">
+<div class="container bg-light rounded shadow p-3 mt-5 mb-5">
     <div class="row">
-        <div class="col-2 m-auto">
+        <div class="col-sm-12 col-md-2 col-xxl-1">
             <div class="row">
-                <div class="col-1">
-                    <span>\[b\]</span>
-                </div>
-                <div class="col m-auto">
-                    <input type="text" id="end" class="form-control">
+                <div class="col input-group align-content-end mb-3">
+                    <label for="end" class="input-group-text h-50">\[b\]</label>
+                    <input type="text" id="end" class="form-control h-50">
                 </div>
             </div>
             <div class="row">
-                <div class="col-1">
-                    <span>\[a\]</span>
-                </div>
-                <div class="col m-auto">
-                <input type="text" id="start" class="form-control">
+                <div class="col input-group">
+                    <label for="start" class="input-group-text h-50">\[a\]</label>
+                    <input type="text" id="start" class="form-control h-50">
                 </div>
             </div>
         </div>
-        <div class="col input-group align-content-center">
+        <div class="col input-group align-content-center mb-sm-5 mb-md-0">
             <label for="input" class="input-group-text">\[\int\]</label>
             <input type="text" id="input" class="form-control">
-            <button type="button" id="create" class="btn btn-outline-primary">Посчитать</button>
+            <button type="button" id="create" class="btn bg-gradient-animated text-white">\[\approx\]</button>
+        </div>
+        <div class="col-sm-12 col-md-auto m-md-auto">
+            <div class="row">
+                <div class="col mb-4">
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside">Алгоритм
+                    </button>
+                    <ul class="dropdown-menu p-3">
+                        <li class="form-check">
+                            <input class="form-check-input" type="radio" name="algo" id="l-rect">
+                            <label class="form-check-label" for="l-rect">
+                                Левые прямоугольники
+                            </label>
+                        </li>
+                        <li class="form-check">
+                            <input class="form-check-input" type="radio" name="algo" id="r-rect" checked>
+                            <label class="form-check-label" for="r-rect">
+                                Правые прямоугольники
+                            </label>
+                        </li>
+                        <li class="form-check">
+                            <input class="form-check-input" type="radio" name="algo" id="trap">
+                            <label class="form-check-label" for="trap">
+                                Трапеции
+                            </label>
+                        </li>
+                        <li class="form-check">
+                            <input class="form-check-input" type="radio" name="algo" id="parabola">
+                            <label class="form-check-label" for="parabola">
+                                Параболы
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside">Метод
+                    </button>
+                    <ul class="dropdown-menu p-3">
+                        <li class="form-check">
+                            <input class="form-check-input" type="radio" name="mode" id="splits" data-bs-toggle="collapse" data-bs-target="#n-input">
+                            <label class="form-check-label" for="splits">
+                                Разбиения
+                            </label>
+                            <div class="collapse" id="n-input">
+                                <div class="input-group">
+                                    <label for="splits-input" class="input-group-text">\[n\]</label>
+                                    <input type="text" id="splits-input" class="form-control">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-check">
+                            <input class="form-check-input" type="radio" name="mode" id="double" checked>
+                            <label class="form-check-label" for="double">
+                                Двойной пересчет
+                            </label>
+                        </li>
+                        <li class="form-check">
+                            <input class="form-check-input" type="radio" name="mode" id="double-margin">
+                            <label class="form-check-label" for="double-margin">
+                                Двойной пересчет с отступами
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>

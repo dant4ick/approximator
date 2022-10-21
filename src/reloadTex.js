@@ -8,7 +8,7 @@ MathJax = {
     mathmlSpacing: false,
     skipAttributes: {},
     exFactor: .5,
-    displayAlign: 'center',
+    displayAlign: 'auto',
     displayIndent: '0',
     fontCache: 'local',
     localID: null,
