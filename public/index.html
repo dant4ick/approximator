@@ -81,8 +81,8 @@
                             </label>
                         </li>
                         <li class="form-check">
-                            <input class="form-check-input" type="radio" name="algo" id="parabola">
-                            <label class="form-check-label" for="parabola">
+                            <input class="form-check-input" type="radio" name="algo" id="arc">
+                            <label class="form-check-label" for="arc">
                                 Параболы
                             </label>
                         </li>
@@ -96,16 +96,13 @@
                     </button>
                     <ul class="dropdown-menu p-3">
                         <li class="form-check">
-                            <input class="form-check-input" type="radio" name="mode" id="splits"
-                                   data-bs-toggle="collapse" data-bs-target="#n-input">
+                            <input class="form-check-input" type="radio" name="mode" id="splits">
                             <label class="form-check-label" for="splits">
                                 Разбиения
                             </label>
-                            <div class="collapse" id="n-input">
-                                <div class="input-group">
-                                    <label for="splits-input" class="input-group-text">\[n\]</label>
-                                    <input type="text" id="splits-input" class="form-control">
-                                </div>
+                            <div class="input-group">
+                                <label for="splits-input" class="input-group-text">\[n\]</label>
+                                <input type="text" id="splits-input" class="form-control" value="10000">
                             </div>
                         </li>
                         <li class="form-check">
@@ -113,12 +110,20 @@
                             <label class="form-check-label" for="double">
                                 Двойной пересчет
                             </label>
+                            <div class="input-group">
+                                <label for="double-input" class="input-group-text">\[eps\]</label>
+                                <input type="text" id="double-input" class="form-control" value="0.000001">
+                            </div>
                         </li>
                         <li class="form-check">
                             <input class="form-check-input" type="radio" name="mode" id="double-margin">
                             <label class="form-check-label" for="double-margin">
-                                Двойной пересчет с отступами
+                                Двойной пересчет c отступами
                             </label>
+                            <div class="input-group">
+                                <label for="double-margin-input" class="input-group-text">\[eps\]</label>
+                                <input type="text" id="double-margin-input" class="form-control" value="0.000001">
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -126,8 +131,8 @@
         </div>
     </div>
 </div>
-<section id="display"></section>
-<script src="../src/create.js"></script>
+<section id="results"></section>
+<script src="../src/newElementHandler.js"></script>
 <script src="../src/integrate.js"></script>
 </body>
 </html>
