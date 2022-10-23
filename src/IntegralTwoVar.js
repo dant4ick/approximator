@@ -1,64 +1,64 @@
-function multiple_integral_left_rect(f, outerStart, outerEnd, outersplit, insideStart, insideEnd, insidesplit, method) {
-    let outerStep = (outerEnd - outerStart) / outersplit;
+function multiple_integral_left_rect(f, dxStart, dxEnd, dxSplit, dyStart, dyEnd, dySplit, method) {
+    let dxStep = (dxEnd - dxStart) / dxSplit;
 
-    let integralX = 0;
-    let x = outerStart;
-    while (x <= (outerEnd - outerStep)) {
-        integralX += method(f, insideStart, insideEnd, step = NaN, insidesplit, y = x);
-        x += outerStep;
+    let dxIntegral = 0;
+    let x = dxStart;
+    while (x <= (dxEnd - dxStep)) {
+        dxIntegral += method(f, dyStart, dyEnd, NaN, dySplit, x);
+        x += dxStep;
     }
-    return outerStep * integralX;
+    return dxStep * dxIntegral;
 }
 
-function multiple_integral_right_rect(f, outerStart, outerEnd, outersplit, insideStart, insideEnd, insidesplit, method) {
-    let outerStep = (outerEnd - outerStart) / outersplit;
+function multiple_integral_right_rect(f, dxStart, dxEnd, dxSplit, dyStart, dyEnd, dySplit, method) {
+    let dxStep = (dxEnd - dxStart) / dxSplit;
 
-    let integralX = 0;
-    let x = outerStart + outerStart;
-    while (x <= outerEnd) {
-        integralX += method(f, insideStart, insideEnd, step = NaN, insidesplit, y = x);
-        x += outerStep;
+    let dxIntegral = 0;
+    let x = dxStart + dxStart;
+    while (x <= dxEnd) {
+        dxIntegral += method(f, dyStart, dyEnd, NaN, dySplit, x);
+        x += dxStep;
     }
-    return outerStep * integralX;
+    return dxStep * dxIntegral;
 }
 
-function multiple_integral_trap(f, outerStart, outerEnd, outersplit, insideStart, insideEnd, insidesplit, method) {
-    let outerStep = (outerEnd - outerStart) / outersplit;
+function multiple_integral_trap(f, dxStart, dxEnd, dxSplit, dyStart, dyEnd, dySplit, method) {
+    let dxStep = (dxEnd - dxStart) / dxSplit;
 
-    let integralX = 0;
-    let x = outerStart + outerStep;
-    while (x <= (outerEnd - outerStart)) {
-        integralX += method(f, insideStart, insideEnd, step = NaN, insidesplit, y = x);
-        x += outerStep;
+    let dxIntegral = 0;
+    let x = dxStart + dxStep;
+    while (x <= (dxEnd - dxStart)) {
+        dxIntegral += method(f, dyStart, dyEnd, NaN, dySplit, x);
+        x += dxStep;
     }
     const expression = math.parse(f).compile();
-    return ((expression.evaluate({'x': outerStart, 'y': insideStart}) + expression.evaluate({
-        'x': outerEnd,
-        'y': insideEnd
-    })) / 2 + integralX) * outerStep;
+    return ((expression.evaluate({'x': dxStart, 'y': dyStart}) + expression.evaluate({
+        'x': dxEnd,
+        'y': dyEnd
+    })) / 2 + dxIntegral) * dxStep;
 }
 
-function multiple_integral_par(f, outerStart, outerEnd, outersplit, insideStart, insideEnd, insidesplit, method) {
-    let outerStep = (outerEnd - outerStart) / outersplit;
+function multiple_integral_par(f, dxStart, dxEnd, dxSplit, dyStart, dyEnd, dySplit, method) {
+    let dxStep = (dxEnd - dxStart) / dxSplit;
 
     const expression = math.parse(f).compile();
 
-    let fraction_odd = 0;
-    let x = outerStart + outerStep;
-    while (x <= (outerEnd - outerStep)) {
-        fraction_odd += method(f, insideStart, insideEnd, step = NaN, insidesplit, y = x);
-        x += 2 * outerStep;
+    let dxIntegralOdd = 0;
+    let x = dxStart + dxStep;
+    while (x <= (dxEnd - dxStep)) {
+        dxIntegralOdd += method(f, dyStart, dyEnd, NaN, dySplit, x);
+        x += 2 * dxStep;
     }
 
-    let fraction_even = 0;
-    x = outerStart + (2 * outerStep);
-    while (x <= (outerEnd - (2 * outerStep))) {
-        fraction_even += method(f, insideStart, insideEnd, step = NaN, insidesplit, y = x);
-        x += 2 * outerStep;
+    let dxIntegralEven = 0;
+    x = dxStart + (2 * dxStep);
+    while (x <= (dxEnd - (2 * dxStep))) {
+        dxIntegralEven += method(f, dyStart, dyEnd, NaN, dySplit, x);
+        x += 2 * dxStep;
     }
 
-    return (expression.evaluate({'x': outerStart, 'y': insideStart}) + expression.evaluate({
-        'x': outerEnd,
-        'y': insideEnd
-    }) + (4 * fraction_odd) + (2 * fraction_even)) * (outerStep / 3);
+    return (expression.evaluate({'x': dxStart, 'y': dyStart}) + expression.evaluate({
+        'x': dxEnd,
+        'y': dyEnd
+    }) + (4 * dxIntegralOdd) + (2 * dxIntegralEven)) * (dxStep / 3);
 }
