@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор-интегратор</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.3.1/math.js"
+            integrity="sha512-Q1qOFs0DNtp9bviP8uSyPm0d1ES7zw8BXZ7AF2XCWIVKHObK6U7mkMZ+SGOf1vF71zI/60lO+FjBTrzaYGRqnw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="../src/reloadTex.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+<body>
+<nav style="--bs-breadcrumb-divider: '>';">
+    <div class="container mt-5">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="../index.html">Интегрирование</a></li>
+            <li class="breadcrumb-item active">Определенный интеграл</li>
+        </ol>
+    </div>
+</nav>
+<div class="container bg-light rounded shadow p-3 mt-5 mb-5">
+    <div class="row">
+        <div class="col-sm-12 col-lg-2 col-xxl-1">
+            <div class="row">
+                <div class="col input-group align-content-end mb-3">
+                    <label for="dx-end" class="input-group-text h-50">\[b\]</label>
+                    <input type="text" id="dx-end" class="form-control h-50" value="3">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col input-group">
+                    <label for="dx-start" class="input-group-text h-50">\[a\]</label>
+                    <input type="text" id="dx-start" class="form-control h-50" value="1.2">
+                </div>
+            </div>
+        </div>
+        <div class="col input-group align-content-center mb-sm-5 mb-lg-0">
+            <label for="input" class="input-group-text">\[\int_{a}^{b}\]</label>
+            <input type="text" id="input" class="form-control"
+                   value="sqrt(2 * (x ^ 2) + 0.7) / (1.5 + sqrt(0.8 * x + 1))">
+            <label for="input" class="input-group-text">\[dx\]</label>
+            <button type="button" id="solve" class="btn bg-gradient-animated text-white">\[\approx\]</button>
+        </div>
+        <div class="col-sm-12 col-lg-auto m-lg-auto">
+            <div class="row">
+                <div class="col mb-4">
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside">Алгоритм
+                    </button>
+                    <ul class="dropdown-menu p-3">
+                        <li class="form-check">
+                            <input class="form-check-input" type="radio" name="dx-algo" id="dx-l-rect">
+                            <label class="form-check-label" for="dx-l-rect">
+                                Левые прямоугольники
+                            </label>
+                        </li>
+                        <li class="form-check">
+                            <input class="form-check-input" type="radio" name="dx-algo" id="dx-r-rect">
+                            <label class="form-check-label" for="dx-r-rect">
+                                Правые прямоугольники
+                            </label>
+                        </li>
+                        <li class="form-check">
+                            <input class="form-check-input" type="radio" name="dx-algo" id="dx-trap" checked>
+                            <label class="form-check-label" for="dx-trap">
+                                Трапеции
+                            </label>
+                        </li>
+                        <li class="form-check">
+                            <input class="form-check-input" type="radio" name="dx-algo" id="dx-arc">
+                            <label class="form-check-label" for="dx-arc">
+                                Параболы
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside">Метод
+                    </button>
+                    <ul class="dropdown-menu p-3">
+                        <li class="form-check">
+                            <input class="form-check-input" type="radio" name="mode" id="splits" checked>
+                            <label class="form-check-label" for="splits">
+                                Разбиения
+                            </label>
+                            <div class="input-group">
+                                <label for="dx-splits-input" class="input-group-text">\[n\]</label>
+                                <input type="text" id="dx-splits-input" class="form-control" value="10000">
+                            </div>
+                        </li>
+                        <li class="form-check">
+                            <input class="form-check-input" type="radio" name="mode" id="double">
+                            <label class="form-check-label" for="double">
+                                Двойной пересчет
+                            </label>
+                            <div class="input-group">
+                                <label for="double-input" class="input-group-text">\[eps\]</label>
+                                <input type="text" id="double-input" class="form-control" value="0.0001">
+                            </div>
+                        </li>
+                        <li class="form-check">
+                            <input class="form-check-input" type="radio" name="mode" id="double-margin">
+                            <label class="form-check-label" for="double-margin">
+                                Двойной пересчет c отступами
+                            </label>
+                            <div class="input-group">
+                                <label for="double-margin-input" class="input-group-text">\[eps\]</label>
+                                <input type="text" id="double-margin-input" class="form-control" value="0.0001">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section id="results"></section>
+<script src="../src/NewElementHandler.js"></script>
+<script>new Numerical();</script>
+<script src="../src/integrate.js"></script>
+<script src="../src/IntegralTwoVar.js"></script>
+</body>
+</html>

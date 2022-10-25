@@ -1,64 +1,64 @@
-function multiple_integral_left_rect(f, dxStart, dxEnd, dxSplit, dyStart, dyEnd, dySplit, method) {
-    let dxStep = (dxEnd - dxStart) / dxSplit;
+function multiple_integrate_left_rect(f, dxStart, dxEnd, dxSplit, dyStart, dyEnd, dySplit, method) {
+    let dyStep = (dyEnd - dyStart) / dySplit;
 
-    let dxIntegral = 0;
-    let x = dxStart;
-    while (x <= (dxEnd - dxStep)) {
-        dxIntegral += method(f, dyStart, dyEnd, NaN, dySplit, x);
-        x += dxStep;
+    let dyIntegral = 0;
+    let y = dyStart;
+    while (y <= (dyEnd - dyStep)) {
+        dyIntegral += method(f, dxStart, dxEnd, NaN, dxSplit, y);
+        y += dyStep;
     }
-    return dxStep * dxIntegral;
+    return dyStep * dyIntegral;
 }
 
-function multiple_integral_right_rect(f, dxStart, dxEnd, dxSplit, dyStart, dyEnd, dySplit, method) {
-    let dxStep = (dxEnd - dxStart) / dxSplit;
+function multiple_integrate_right_rect(f, dxStart, dxEnd, dxSplit, dyStart, dyEnd, dySplit, method) {
+    let dyStep = (dyEnd - dyStart) / dySplit
 
-    let dxIntegral = 0;
-    let x = dxStart + dxStart;
-    while (x <= dxEnd) {
-        dxIntegral += method(f, dyStart, dyEnd, NaN, dySplit, x);
-        x += dxStep;
+    let dyIntegral = 0;
+    let y = dyStart + dyStep;
+    while (y <= dyEnd) {
+        dyIntegral += method(f, dxStart, dxEnd, NaN, dxSplit, y);
+        y += dyStep;
     }
-    return dxStep * dxIntegral;
+    return dyStep * dyIntegral;
 }
 
-function multiple_integral_trap(f, dxStart, dxEnd, dxSplit, dyStart, dyEnd, dySplit, method) {
-    let dxStep = (dxEnd - dxStart) / dxSplit;
+function multiple_integrate_trap(f, dxStart, dxEnd, dxSplit, dyStart, dyEnd, dySplit, method) {
+    let dyStep = (dyEnd - dyStart) / dySplit;
 
-    let dxIntegral = 0;
-    let x = dxStart + dxStep;
-    while (x <= (dxEnd - dxStart)) {
-        dxIntegral += method(f, dyStart, dyEnd, NaN, dySplit, x);
-        x += dxStep;
+    let dyIntegral = 0;
+    let y = dyStart + dyStep;
+    while (y <= (dyEnd - dyStep)) {
+        dyIntegral += method(f, dxStart, dxEnd, NaN, dxSplit, y);
+        y += dyStep;
     }
     const expression = math.parse(f).compile();
-    return ((expression.evaluate({'x': dxStart, 'y': dyStart}) + expression.evaluate({
-        'x': dxEnd,
-        'y': dyEnd
-    })) / 2 + dxIntegral) * dxStep;
+    return (
+        (expression.evaluate({'x': dyStart, 'y': dxStart}) +
+        expression.evaluate({'x': dyEnd, 'y': dxEnd})) / 2 + dyIntegral)
+        * dyStep;
 }
 
-function multiple_integral_par(f, dxStart, dxEnd, dxSplit, dyStart, dyEnd, dySplit, method) {
-    let dxStep = (dxEnd - dxStart) / dxSplit;
+function multiple_integrate_par(f, dxStart, dxEnd, dxSplit, dyStart, dyEnd, dySplit, method) {
+    let dyStep = (dyEnd - dyStart) / dySplit;
+
+    let dyIntegralOdd = 0;
+
+    let y = dyStart + dyStep;
+    while (y <= (dyEnd - dyStep)) {
+        dyIntegralOdd += method(f, dxStart, dxEnd, NaN, dxSplit, y);
+        y += 2 * dyStep;
+    }
+    let dyIntegralEven = 0;
+
+    y = dyStart + (2 * dyStep);
+    while (y <= (dyEnd - (2 * dyStep))) {
+        dyIntegralEven += method(f, dxStart, dxEnd, NaN, dxSplit, y);
+        y += 2 * dyStep;
+    }
 
     const expression = math.parse(f).compile();
-
-    let dxIntegralOdd = 0;
-    let x = dxStart + dxStep;
-    while (x <= (dxEnd - dxStep)) {
-        dxIntegralOdd += method(f, dyStart, dyEnd, NaN, dySplit, x);
-        x += 2 * dxStep;
-    }
-
-    let dxIntegralEven = 0;
-    x = dxStart + (2 * dxStep);
-    while (x <= (dxEnd - (2 * dxStep))) {
-        dxIntegralEven += method(f, dyStart, dyEnd, NaN, dySplit, x);
-        x += 2 * dxStep;
-    }
-
-    return (expression.evaluate({'x': dxStart, 'y': dyStart}) + expression.evaluate({
-        'x': dxEnd,
-        'y': dyEnd
-    }) + (4 * dxIntegralOdd) + (2 * dxIntegralEven)) * (dxStep / 3);
+    return (expression.evaluate({'x': dyStart, 'y': dxStart}) + expression.evaluate({
+        'x': dyEnd,
+        'y': dxEnd
+    }) + (4 * dyIntegralOdd) + (2 * dyIntegralEven)) * (dyStep / 3);
 }
