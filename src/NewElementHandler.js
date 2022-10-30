@@ -12,7 +12,7 @@ class NewElementHandler {
     this.solveButton.addEventListener('click', () => this.displayNewElem());
   }
 
-  updateTex(){MathJax.typeset();}
+  updateTex() {MathJax.typeset();}
 
   displayNewElem() {
     return undefined;
@@ -60,10 +60,11 @@ class Numerical extends NewElementHandler {
         break;
     }
 
-    let eps, result;
+    let splits, eps, result;
     let selectedMethodName;
     switch (method) {
       case 'splits':
+        splits = this.dxInputSplits.value;
         selectedMethodName = 'разбиения';
         result = selectedAlgo(exp, start, end, NaN, this.dxInputSplits.value);
         break;
@@ -82,8 +83,8 @@ class Numerical extends NewElementHandler {
       result: result,
       algorithm: selectedAlgoName,
       method: selectedMethodName,
-      methodParam: (this.dxInputSplits.value || this.dxInputSplits.value === 0)
-          ? this.dxInputSplits.value
+      methodParam: (splits || splits === 0)
+          ? splits
           : eps,
     };
   }
@@ -214,7 +215,7 @@ class Multiple extends NewElementHandler {
         dxSplits = parseInt(this.dxInputSplits.value),
         dyStart = parseFloat(this.dyInputStart.value),
         dyEnd = parseFloat(this.dyInputEnd.value),
-        dySplits = parseInt(this.dyInputSplits.value)
+        dySplits = parseInt(this.dyInputSplits.value);
 
     const result = dxSelectedAlgo(
         expression,
@@ -224,7 +225,7 @@ class Multiple extends NewElementHandler {
         dyStart,
         dyEnd,
         dySplits,
-        dySelectedAlgo)
+        dySelectedAlgo);
 
     return {
       result: result,
@@ -240,9 +241,10 @@ class Multiple extends NewElementHandler {
       dyEnd: dyEnd,
 
       dxSplits: dxSplits,
-      dySplits: dySplits
+      dySplits: dySplits,
     };
   }
+
   displayNewElem() {
     // Решение
     const container = document.createElement('div');

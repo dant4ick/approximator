@@ -80,7 +80,8 @@ function integrate_par(f, start, end, step = NaN, split = NaN, y = NaN) {
     x += 2 * step;
   }
 
-  return (expression.evaluate({'x': start, 'y': y}) + expression.evaluate({'x': end, 'y': y}) +
+  return (expression.evaluate({'x': start, 'y': y}) +
+      expression.evaluate({'x': end, 'y': y}) +
       (4 * fraction_odd) +
       (2 * fraction_even)) * (step / 3);
 }
