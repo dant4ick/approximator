@@ -89,28 +89,28 @@ function integrate_par(f, start, end, step = NaN, split = NaN, y = NaN) {
 function integrate_double(f, start, end, eps, method) {
     let step = Math.sqrt(eps);
 
-    let trap1;
-    let trap2 = 0;
+    let integral1;
+    let integral2 = 0;
     do {
-        trap1 = trap2;
-        trap2 = method(f, start, end, step);
+        integral1 = integral2;
+        integral2 = method(f, start, end, step);
         step /= 2;
-    } while (Math.abs(trap1 - trap2) > eps);
-    return trap2;
+    } while (Math.abs(integral1 - integral2) > eps);
+    return integral2;
 }
 
 function integrate_double_optimised(f, start, end, eps, method) {
     let step = Math.sqrt(eps);
     let margin = 0;
 
-    let trap1;
-    let trap2 = 0;
+    let integral1;
+    let integral2 = 0;
     do {
-        trap1 = trap2;
-        trap2 = method(f, start + margin, end, step);
+        integral1 = integral2;
+        integral2 = method(f, start + margin, end, step);
         step /= 2;
         margin = step / 2;
-    } while (Math.abs(trap1 - trap2) > eps);
-    return trap2;
+    } while (Math.abs(integral1 - integral2) > eps);
+    return integral2;
 }
 
