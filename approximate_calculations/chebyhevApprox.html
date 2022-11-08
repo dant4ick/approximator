@@ -27,7 +27,37 @@
   </div>
 </nav>
 
+<div class="container bg-light rounded shadow p-3 mt-5 mb-5">
+  <div class="row">
 
+    <div class="col col-sm-3 col-md-2 col-lg-2 col-xxl-2">
+      <div class="row">
+        <div class="col input-group align-content-end mb-3">
+          <label for="localDot" class="input-group-text h-50">\[{x}_{0}\]</label>
+          <input type="text" id="localDot" class="form-control h-50" value="1,2">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col input-group">
+          <label for="truncation" class="input-group-text h-50 ">\[{T}_{n}\]</label>
+          <input type="text" id="truncation" class="form-control h-50" value="5">
+        </div>
+      </div>
+    </div>
 
+    <div class="col input-group align-content-center">
+      <label for="input" class="input-group-text h-50">\[\ f(x)\]</label>
+      <input type="text" id="input" class="form-control h-50"
+             value="sin(x)">
+      <button type="button" id="solve" class="btn bg-gradient-animated text-white">\[f({x}_{0}) \approx\]</button>
+    </div>
+
+  </div>
+</div>
+
+<section id="results"></section>
+<script src="../src/ApproximateElementHandler.js"></script>
+<script>new ChebyhevApprox();</script>
+<script src="../src/approximation.js"></script>
 </body>
 </html>

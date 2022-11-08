@@ -1,5 +1,3 @@
-const math = require("mathjs")
-
 function polyNum(ord, x) {
     if (ord === 0) {
         return 1
@@ -31,7 +29,7 @@ function coefficient(j, N, f) {
         root = rootPoly(k, N);
         sum += (math.compile(f).evaluate({"x": root})) * polyNum(j, root);
     }
-    return math.round((2 / N) * sum, 13)
+    return math.round((2 / N) * sum, 10)
 }
 
 function toSeries(func, localDot, truncation) {
@@ -49,7 +47,7 @@ function toSeries(func, localDot, truncation) {
     let powerSeries = [];
     for (let j = 0; j < truncation; j++) {
         powerSeries.push(`${coefficients[j]}*(${polys[j]})`);
-        polySeries.push(`${math.parse(coefficients[j].toString()).toTex()}*{T}_{${j}}`);
+        polySeries.push(`${math.parse(coefficients[j].toString()).toTex()}\\cdot {T}_{${j}}`);
         polys[j] = math.parse(polys[j]).toTex();
         polys[j] = `\\[{T}_{${j}} = ${polys[j]}\\]`;
     }
@@ -62,6 +60,8 @@ function toSeries(func, localDot, truncation) {
     powerSeries = powerSeries.join(' + ');
     powerSeries = math.rationalize(powerSeries).toTex();
     powerSeries = `\\[${funcTex} \\approx ${powerSeries}\\]`;
+
+    value = `\\[ f(${localDot}) \\approx ${value}\\]`
 
     return {polySeries, polys, powerSeries, value}
 }
@@ -96,6 +96,3 @@ function iterations(F, localDot, ordinate, eps) {
 
     return {iterativeFormula, ordinates, value}
 }
-
-console.log(toSeries('sin(x)', math.pi, 7).polySeries)
-console.log(iterations('y^2 - x', 14.76, 1, 0.000001))

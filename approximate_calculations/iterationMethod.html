@@ -27,7 +27,37 @@
   </div>
 </nav>
 
+<div class="container bg-light rounded shadow p-3 mt-5 mb-5">
 
+  <div class="container col-sm-10 col-md-8 col-lg-6  col-xxl-6">
+    <div class="row">
+      <div class="col input-group align-content-end mb-4">
+        <label for="localDot" class="input-group-text h-50">\[{x}_{0}\]</label>
+        <input type="text" id="localDot" class="form-control h-50" value="14.76">
+      </div>
+
+      <div class="col input-group align-content-end mb-4">
+        <label for="firstRecurrentTerm" class="input-group-text h-50">\[{y}_{0}\]</label>
+        <input type="text" id="firstRecurrentTerm" class="form-control h-50" value="3.8">
+      </div>
+
+      <div class="col input-group align-content-end mb-4">
+        <label for="eps" class="input-group-text h-50">\[\varepsilon\]</label>
+        <input type="text" id="eps" class="form-control h-50" value="0.0001">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col input-group align-content-center mb-4">
+      <label for="input" class="input-group-text ">\[\ F(x, y)\]</label>
+      <input type="text" id="input" class="form-control "
+             value="y^2 - x">
+      <button type="button" id="solve" class="btn bg-gradient-animated text-white ">\[f({x}_{0}) \approx\]</button>
+    </div>
+  </div>
+
+</div>
 
 </body>
 </html>
