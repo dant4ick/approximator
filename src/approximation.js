@@ -97,5 +97,5 @@ function iterations(F, localDot, ordinate, eps) {
     return {iterativeFormula, ordinates, value}
 }
 
-console.log(toSeries('sin(x)', math.pi, 7))
+console.log(toSeries('sin(x)', math.pi, 7).polySeries)
 console.log(iterations('y^2 - x', 14.76, 1, 0.000001))
