@@ -133,7 +133,7 @@ class IterativeApprox extends Approx {
 
     for (let i = 0; i < ordinates.length; i++) {
 
-      ordinates[i] = `\\[{y}_{${i}} = ${ordinates[i]}\\]`;
+      ordinates[i] = `\\[{y}_{${i}} = ${math.round(ordinates[i], 6)}\\]`;
     }
     ordinates = `${ordinates.join('')}`;
 
