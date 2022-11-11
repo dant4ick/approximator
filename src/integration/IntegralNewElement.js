@@ -1,4 +1,4 @@
-class NewElementHandler {
+class IntegralNewElement {
   constructor() {
     this.resultsSection = document.getElementById('results');
     this.solveButton = document.getElementById('solve');
@@ -12,14 +12,16 @@ class NewElementHandler {
     this.solveButton.addEventListener('click', () => this.displayNewElem());
   }
 
-  updateTex() {MathJax.typeset();}
+  updateTex() {
+    MathJax.typeset();
+  }
 
   displayNewElem() {
     return undefined;
   }
 }
 
-class Numerical extends NewElementHandler {
+class Numerical extends IntegralNewElement {
   constructor() {
     super();
     this.modes = document.getElementsByName('mode');
@@ -144,7 +146,7 @@ class Numerical extends NewElementHandler {
   }
 }
 
-class Multiple extends NewElementHandler {
+class Multiple extends IntegralNewElement {
   constructor() {
     super();
     this.dyInputStart = document.getElementById('dy-start');
