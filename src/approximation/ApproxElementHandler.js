@@ -42,6 +42,7 @@ class ChebyshevApprox extends Approx {
       polys[j] = math.parse(polys[j]).toTex();
       polys[j] = `\\[{T}_{${j}} = ${polys[j]}\\]`;
     }
+    powerSeries.push(coefficients[truncation])
     let funcTex = math.parse(expression).toTex();
 
     polySeries = polySeries.join(' + ');

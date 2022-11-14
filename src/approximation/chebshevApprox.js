@@ -43,6 +43,7 @@ function toSeries(func, localDot, truncation) {
     value += coefficients[j] * polyNum(j, localDot);
   }
   value -= 0.5 * coefficient(0, truncation, func);
+  coefficients.push(-0.5 * coefficient(0, truncation, func))
 
   return {polys, coefficients, value};
 }
