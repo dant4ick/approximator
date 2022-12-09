@@ -48,12 +48,12 @@ function K(func, s, x, y, h, butcher) {
 function rungeKutta(func, x0, localDot, y0, h, s) {
   const butcher = {a: butcherArraysA[s], b: butcherArraysB[s], c: butcherArraysC[s]}
 
-  const split = localDot / h;
+  const splits = (localDot - x0) / h;
   let x = x0;
   let y = y0;
   let sum;
 
-  for (let iter = 0; iter < split; iter++) {
+  for (let iter = 0; iter < splits; iter++) {
     sum = 0;
     for (let i = 1; i < s + 1; i++) {
       sum += butcher.b[i - 1] * K(func, i, x, y, h, butcher);
@@ -64,4 +64,4 @@ function rungeKutta(func, x0, localDot, y0, h, s) {
   return y;
 }
 
-console.log(rungeKutta(' y*(1 - x)', 0, 1, 1, 0.1, 4));
+console.log(rungeKutta(' y*(1 - x)', 0, 1, 1, 0.1, 1));
