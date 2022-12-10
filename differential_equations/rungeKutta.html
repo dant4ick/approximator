@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор-вычислятор</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.3.1/math.js"
+            integrity="sha512-Q1qOFs0DNtp9bviP8uSyPm0d1ES7zw8BXZ7AF2XCWIVKHObK6U7mkMZ+SGOf1vF71zI/60lO+FjBTrzaYGRqnw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="../src/reloadTex.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+<body>
+<nav style="--bs-breadcrumb-divider: '>';">
+    <div class="container mt-5">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="../index.html">Главное меню</a></li>
+            <li class="breadcrumb-item active">Метод Рунге-Кутты</li>
+        </ol>
+    </div>
+</nav>
+<div class="container bg-light rounded shadow p-3 mt-5 mb-5">
+    <div class="row align-items-center">
+        <div class="col-sm-4 col-md-3 mb-2 mb-sm-0">
+            <div class="input-group">
+                <label for="x0" class="input-group-text">${x}$</label>
+                <input type="text" id="x0" class="form-control" value="0">
+                <input type="text" id="local-dot" class="form-control" value="1">
+            </div>
+        </div>
+        <div class="col-sm-3 col-md-2 mb-2 mb-sm-0">
+            <div class="input-group">
+                <label for="y0" class="input-group-text">$y_{0}$</label>
+                <input type="text" id="y0" class="form-control" value="1">
+            </div>
+        </div>
+        <div class="col-sm col-md-3 mb-2 mb-sm-0">
+            <div class="input-group">
+                <label for="splits" class="input-group-text">Разбиения</label>
+                <input type="text" id="splits" class="form-control" value="10">
+            </div>
+        </div>
+        <div class="col-sm-12 col-md mt-sm-2 mt-md-0">
+            <label for="order" class="form-label">
+                Порядок метода: <span class="badge text-bg-secondary">4</span></label>
+            <input type="range" class="form-range" min="1" max="4" id="order" value="4"
+                   oninput="this.previousElementSibling.firstElementChild.textContent = this.value;">
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col">
+            <div class="input-group">
+                <label for="input" class="input-group-text">$y'=$</label>
+                <input type="text" id="input" class="form-control" value="y*(1 - x)">
+                <button type="button" id="solve" class="btn bg-gradient-animated text-white">\[\approx\]</button>
+            </div>
+        </div>
+    </div>
+</div>
+<section id="results"></section>
+<script src="../src/differentiation/RungeKuttaNewElement.js"></script>
+<script>new RungeKuttaNewElement();</script>
+<script src="../src/differentiation/rungeKutta.js"></script>
+</body>
+</html>

@@ -1,6 +1,3 @@
-const math = require('mathjs');
-
-
 const butcherArraysA = {
   1:[
     [0],
@@ -34,34 +31,51 @@ const butcherArraysB = {
   4: [1/6, 2/6, 2/6, 1/6],
 };
 
-function K(func, s, x, y, h, butcher) {
-  if (s === 1) { return math.evaluate(func, {'x': x, 'y': y}); }
+function K(func, order, x, y, h, butcher) {
+  if (order === 1) { return func.evaluate({'x': x, 'y': y}); }
 
   let innerSum = 0;
-  for (let j = 1; j < s; j++) {
-    innerSum += butcher.a[s - 1][j - 1] * K(func, j, x, y, h, butcher);
+  for (let j = 1; j < order; j++) {
+    innerSum += butcher.a[order - 1][j - 1] * K(func, j, x, y, h, butcher);
   }
-  return math.evaluate(func,
-      {'x': x + butcher.c[s - 1] * h, 'y': y + h * innerSum});
+  return func.evaluate(
+      {'x': x + butcher.c[order - 1] * h, 'y': y + h * innerSum});
 }
 
-function rungeKutta(func, x0, localDot, y0, h, s) {
-  const butcher = {a: butcherArraysA[s], b: butcherArraysB[s], c: butcherArraysC[s]}
+function rungeKutta(func, x0, localDot, y0, splits, order) {
+  const butcher = {
+    a: butcherArraysA[order],
+    b: butcherArraysB[order],
+    c: butcherArraysC[order],
+  };
+  func = math.parse(func).compile();
 
-  const splits = (localDot - x0) / h;
+  let result = {x: [], y: []};
+
+  for (let k = 0; k < order; k++) {
+    result[`k${k + 1}`] = [];
+  }
+
+  const step = (localDot - x0) / splits;
   let x = x0;
   let y = y0;
+  let k;
   let sum;
 
   for (let iter = 0; iter < splits; iter++) {
     sum = 0;
-    for (let i = 1; i < s + 1; i++) {
-      sum += butcher.b[i - 1] * K(func, i, x, y, h, butcher);
+    for (let i = 1; i < order + 1; i++) {
+      k = K(func, i, x, y, step, butcher);
+      sum += butcher.b[i - 1] * k;
+      result[`k${i}`].push(k);
     }
-    x += h;
-    y += h * sum;
+    result.x.push(x);
+    result.y.push(y);
+    x += step;
+    y += step * sum;
   }
-  return y;
+  result.x.push(x);
+  result.y.push(y);
+  console.log(result)
+  return result;
 }
-
-console.log(rungeKutta(' y*(1 - x)', 0, 1, 1, 0.1, 1));
