@@ -1,3 +1,4 @@
+const math = require('mathjs');
 const butcherArraysA = {
   1:[
     [0],
@@ -42,6 +43,38 @@ function K(func, order, x, y, h, butcher) {
       {'x': x + butcher.c[order - 1] * h, 'y': y + h * innerSum});
 }
 
+function KY(funcY, funcZ, s, x, y, z, h, butcher) {
+  if (s === 1) { return funcY.evaluate( {'x': x, 'y': y, 'z': z}) }
+
+  let innerSumY = 0;
+  let innerSumZ = 0;
+
+  for (let j = 1; j < s; j++) {
+    innerSumY += butcher.a[s - 1][j - 1] * KY(funcY, funcZ, j, x, y, z, h, butcher);
+    innerSumZ += butcher.a[s - 1][j - 1] * KZ(funcY, funcZ, j, x, y, z, h, butcher);
+  }
+  return funcY.evaluate({
+    'x': x + butcher.c[s - 1] * h,
+    'y': y + h * innerSumY,
+    'z': z + h * innerSumZ});
+}
+
+function KZ(funcY, funcZ, s, x, y, z, h, butcher) {
+  if (s === 1) { return funcZ.evaluate( {'x': x, 'y': y, 'z': z}) }
+
+  let innerSumY = 0;
+  let innerSumZ = 0;
+
+  for (let j = 1; j < s; j++) {
+    innerSumY += butcher.a[s - 1][j - 1] * KY(funcY, funcZ, j, x, y, z, h, butcher);
+    innerSumZ += butcher.a[s - 1][j - 1] * KZ(funcY, funcZ, j, x, y, z, h, butcher);
+  }
+  return funcZ.evaluate({
+    'x': x + butcher.c[s - 1] * h,
+    'y': y + h * innerSumY,
+    'z': z + h * innerSumZ});
+}
+
 function rungeKutta(func, x0, localDot, y0, splits, order) {
   const butcher = {
     a: butcherArraysA[order],
@@ -79,3 +112,40 @@ function rungeKutta(func, x0, localDot, y0, splits, order) {
   console.log(result)
   return result;
 }
+
+function rungeKutta2(funcY, funcZ, x0, localDot, y0, z0, h, s) {
+  const butcher = {a: butcherArraysA[s], b: butcherArraysB[s], c: butcherArraysC[s]}
+
+  funcY = math.parse(funcY).compile();
+  funcZ = math.parse(funcZ).compile();
+
+  const splits = (localDot - x0) / h;
+
+  let x = x0;
+  let y = y0;
+  let z = z0;
+
+  let sumOfKY;
+  let sumOfKZ;
+
+  let result = [{'x': x, 'y': y, 'z': z}]
+
+  for (let iter = 0; iter < splits; iter++) {
+    sumOfKY = 0;
+    sumOfKZ = 0;
+
+    for (let i = 1; i < s + 1; i++) {
+      sumOfKY += butcher.b[i - 1] * KY(funcY, funcZ, i, x, y, z, h, butcher);
+      sumOfKZ += butcher.b[i - 1] * KZ(funcY, funcZ, i, x, y, z, h, butcher);
+    }
+
+    x += h;
+    y += h * sumOfKY;
+    z += h * sumOfKZ;
+
+    result.push({'x': x, 'y': y, 'z': z})
+  }
+  return result;
+}
+
+
