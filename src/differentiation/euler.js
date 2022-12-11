@@ -1,5 +1,3 @@
-const math = require('mathjs');
-
 function euler(func, x0, localDot, y0, splits) {
   let step = (localDot - x0) / splits;
   let x = x0;
