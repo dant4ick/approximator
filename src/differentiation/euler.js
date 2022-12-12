@@ -1,5 +1,7 @@
 function euler(funcX, t0, localDot, x0, splits) {
   let step = (localDot - t0) / splits;
+  funcX = math.parse(funcX).compile();
+
   let t = t0;
   let x = x0;
   let result = {t: [], x: []};
@@ -8,7 +10,7 @@ function euler(funcX, t0, localDot, x0, splits) {
     result.t.push(t);
     result.x.push(x);
 
-    x += step * math.evaluate(funcX, {t: t, x: x});
+    x += step * funcX.evaluate({t: t, x: x});
     t += step;
   }
 
@@ -19,6 +21,8 @@ function euler(funcX, t0, localDot, x0, splits) {
 
 function euler2(funcX, funcY, t0, localDot, x0, y0, splits) {
   let step = (localDot - t0) / splits;
+  funcX = math.parse(funcX).compile();
+  funcY = math.parse(funcY).compile();
 
   let t;
   let x;
@@ -32,8 +36,8 @@ function euler2(funcX, funcY, t0, localDot, x0, y0, splits) {
 
   for (let iter = 0; iter < splits; iter++) {
     t = tBuff + step;
-    x = xBuff + step * math.evaluate(funcX, {t: tBuff, x: xBuff, y: yBuff});
-    y = yBuff + step * math.evaluate(funcY, {t: tBuff, x: xBuff, y: yBuff});
+    x = xBuff + step * funcX.evaluate({t: tBuff, x: xBuff, y: yBuff});
+    y = yBuff + step * funcY.evaluate({t: tBuff, x: xBuff, y: yBuff});
 
     result.t.push(tBuff);
     result.x.push(xBuff);
@@ -52,6 +56,9 @@ function euler2(funcX, funcY, t0, localDot, x0, y0, splits) {
 
 function euler3(funcX, funcY, funcZ, t0, localDot, x0, y0, z0, splits) {
   let step = (localDot - t0) / splits;
+  funcX = math.parse(funcX).compile();
+  funcY = math.parse(funcY).compile();
+  funcZ = math.parse(funcZ).compile();
 
   let t;
   let x;
@@ -68,11 +75,11 @@ function euler3(funcX, funcY, funcZ, t0, localDot, x0, y0, z0, splits) {
   for (let iter = 0; iter < splits; iter++) {
     t = tBuff + step;
     x = xBuff + step *
-        math.evaluate(funcX, {t: tBuff, x: xBuff, y: yBuff, z: zBuff});
+        funcX.evaluate({t: tBuff, x: xBuff, y: yBuff, z: zBuff});
     y = yBuff + step *
-        math.evaluate(funcY, {t: tBuff, x: xBuff, y: yBuff, z: zBuff});
+        funcY.evaluate({t: tBuff, x: xBuff, y: yBuff, z: zBuff});
     z = zBuff + step *
-        math.evaluate(funcZ, {t: tBuff, x: xBuff, y: yBuff, z: zBuff});
+        funcZ.evaluate({t: tBuff, x: xBuff, y: yBuff, z: zBuff});
 
     result.t.push(tBuff);
     result.x.push(xBuff);
