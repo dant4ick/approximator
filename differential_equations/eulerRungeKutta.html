@@ -20,15 +20,33 @@
     <div class="container mt-5">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="../index.html">Главное меню</a></li>
-            <li class="breadcrumb-item active">Метод Рунге-Кутты</li>
+            <li class="breadcrumb-item active">Дифференциальные уравнения</li>
         </ol>
     </div>
 </nav>
 <div class="container bg-light rounded shadow p-3 mt-5 mb-5">
-    <div class="row justify-content-center mb-3">
+    <div class="row justify-content-center align-items-center mb-3">
+        <div class="col-auto mb-2 mb-sm-0">
+            <div class="input-group input-group-sm">
+                <label class="input-group-text">Метод</label>
+
+                <input type="radio" class="btn-check" name="method-name" id="euler" autocomplete="off" checked
+                       value="euler">
+                <label class="btn btn-outline-secondary" for="euler">Эйлера</label>
+
+                <input type="radio" class="btn-check" name="method-name" id="rungeKutta" autocomplete="off"
+                       value="rungeKutta">
+                <label class="btn btn-outline-secondary" for="rungeKutta">Рунге-Кутты</label>
+            </div>
+        </div>
         <div class="col-auto">
-            <div class="input-group">
-                <label for="inputDZ" class="input-group-text">Число уравнений в системе</label>
+            <label for="order" class="form-label">
+                Порядок метода: <span class="badge text-bg-secondary">4</span></label>
+            <input type="range" class="form-range" min="1" max="4" id="order" value="4">
+        </div>
+        <div class="col-auto">
+            <div class="input-group input-group-sm">
+                <label class="input-group-text">Уравнений в системе</label>
 
                 <input type="radio" class="btn-check" name="number-of-equations" id="equation1" autocomplete="off" checked
                 value="1">
@@ -37,13 +55,17 @@
                 <input type="radio" class="btn-check" name="number-of-equations" id="equation2" autocomplete="off"
                 value="2">
                 <label class="btn btn-outline-secondary" for="equation2">2</label>
+
+                <input type="radio" class="btn-check" name="number-of-equations" id="equation3" autocomplete="off"
+                       value="3">
+                <label class="btn btn-outline-secondary" for="equation3">3</label>
             </div>
         </div>
     </div>
     <div class="row mb-2">
-        <div class="col-sm-4 col-md-3">
+        <div class="col-sm-4 col-md-3 mb-2 mb-sm-0">
             <div class="input-group">
-                <label for="t0" class="input-group-text">$t$</label>
+                <label class="input-group-text">$t$</label>
                 <input type="text" id="t0" class="form-control" value="0">
                 <input type="text" id="local-dot" class="form-control" value="1">
             </div>
@@ -71,7 +93,7 @@
         <div class="col mb-2">
             <div class="input-group">
                 <label for="inputDX" class="input-group-text">$x_{t}'=$</label>
-                <input type="text" id="inputDX" class="form-control" value="x*(1 - t)">
+                <input type="text" id="inputDX" class="form-control" value="x + t">
             </div>
         </div>
     </div>
@@ -79,7 +101,7 @@
         <div class="col mb-2">
             <div class="input-group">
                 <label for="inputDY" class="input-group-text">$y_{t}'=$</label>
-                <input type="text" id="inputDY" class="form-control" value="x*(1 - t)">
+                <input type="text" id="inputDY" class="form-control" value="x + y + t">
             </div>
         </div>
     </div>
@@ -87,7 +109,7 @@
         <div class="col mb-2">
             <div class="input-group">
                 <label for="inputDZ" class="input-group-text">$z_{t}'=$</label>
-                <input type="text" id="inputDZ" class="form-control" value="x*(1 - t)">
+                <input type="text" id="inputDZ" class="form-control" value="x + y + z + t">
             </div>
         </div>
     </div>
@@ -98,11 +120,6 @@
                 <input type="text" id="splits" class="form-control" value="10">
             </div>
         </div>
-        <div class="col-sm-12 col-md">
-            <label for="order" class="form-label">
-                Порядок метода: <span class="badge text-bg-secondary">4</span></label>
-            <input type="range" class="form-range" min="1" max="4" id="order" value="4">
-        </div>
     </div>
     <div class="row-cols-1">
         <div class="col d-grid">
@@ -111,8 +128,9 @@
     </div>
 </div>
 <section id="results"></section>
-<script src="../src/differentiation/RungeKuttaNewElement.js"></script>
-<script>new RungeKuttaNewElement();</script>
+<script src="../src/differentiation/DifferentialNewElement.js"></script>
+<script>new DifferentialNewElement();</script>
 <script src="../src/differentiation/rungeKutta.js"></script>
+<script src="../src/differentiation/euler.js"></script>
 </body>
 </html>
