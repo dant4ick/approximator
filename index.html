@@ -13,78 +13,106 @@
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-<div class="container mt-5 mb-5">
-    <div class="container p-3">
-        <div class="row text-center">
-            <div class="col mb-3">
-                <h2>Интегрирование</h2>
-            </div>
+<div class="container p-5">
+    <div class="row text-center">
+        <div class="col mb-3">
+            <h2>Интегрирование</h2>
         </div>
-        <div class="row mb-3">
-            <div class="col">
-                <div class="container rounded shadow bg-light">
-                    <div class="row text-center">
-                        <a class="col btn m-2 bg-gradient-animated text-white" href="integrals/numerical.html">
-                            \[\int_{a}^{b}f\left(x\right)dx\]
-                        </a>
-                    </div>
-                    <div class="row">
-                        <div class="col m-2 text-center">
-                            Численное интегрирование функции от одной переменной
-                        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <div class="container rounded shadow bg-light">
+                <div class="row text-center">
+                    <a class="col btn m-2 bg-gradient-animated text-white" href="integrals/numerical.html">
+                        \[\int_{a}^{b}f\left(x\right)dx\]
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="col m-2 text-center">
+                        Численное интегрирование функции от одной переменной
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="container rounded shadow bg-light">
-                    <div class="row text-center">
-                        <a class="col btn m-2 bg-gradient-animated text-white" href="integrals/multiple.html">
-                            \[\int_{a}^{b}\left(\int_{c}^{d}f\left(x, y\right)dx\right)dy\]
-                        </a>
-                    </div>
-                    <div class="row">
-                        <div class="col m-2 text-center">
-                            Численное интегрирование функции от двух переменных
-                        </div>
+        <div class="col">
+            <div class="container rounded shadow bg-light">
+                <div class="row text-center">
+                    <a class="col btn m-2 bg-gradient-animated text-white" href="integrals/multiple.html">
+                        \[\int_{a}^{b}\left(\int_{c}^{d}f\left(x, y\right)dx\right)dy\]
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="col m-2 text-center">
+                        Численное интегрирование функции от двух переменных
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row text-center mt-5">
-            <div class="col gy-4 mb-3 ">
-                <h2>Приближенные вычисления функций</h2>
-            </div>
+    </div>
+    <div class="row text-center mt-5">
+        <div class="col gy-4 mb-3 ">
+            <h2>Приближенные вычисления функций</h2>
         </div>
-        <div class="row mb-3">
-            <div class="col">
-                <div class="container rounded shadow bg-light">
-                    <div class="row text-center">
-                        <a class="col btn m-2 bg-gradient-animated text-white" href="approximate_calculations/chebyshevApprox.html">
-                            \[\ f\left( {x}_{0}\right) \approx {c}_{0}*{T}_{0} + {c}_{1}*{T}_{1} + {c}_{2}*{T}_{2} + ... \]
-                        </a>
-                    </div>
-                    <div class="row">
-                        <div class="col m-2 text-center">
-                            Разложение в ряд Чебышева. Приближение многочленами первого рода
-                        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <div class="container rounded shadow bg-light">
+                <div class="row text-center">
+                    <a class="col btn m-2 bg-gradient-animated text-white"
+                       href="approximate_calculations/chebyshevApprox.html">
+                        \[\ f\left( {x}_{0}\right) \approx {c}_{0}*{T}_{0} + {c}_{1}*{T}_{1} + {c}_{2}*{T}_{2} + ... \]
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="col m-2 text-center">
+                        Разложение в ряд Чебышева. Приближение многочленами первого рода
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="container rounded shadow bg-light">
-                    <div class="row text-center">
-                        <a class="col btn m-2 bg-gradient-animated text-white" href="./approximate_calculations/iterationMethod.html">
-                            \[F({x}_{0}, y)\]
-                        </a>
+        <div class="col">
+            <div class="container rounded shadow bg-light">
+                <div class="row text-center">
+                    <a class="col btn m-2 bg-gradient-animated text-white"
+                       href="./approximate_calculations/iterationMethod.html">
+                        \[F({x}_{0}, y)\]
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="col m-2 text-center">
+                        Метод итераций. Приближение функции, выраженной неявно
                     </div>
-                    <div class="row">
-                        <div class="col m-2 text-center">
-                            Метод итераций. Приближение функции, выраженной неявно
-                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row text-center mt-5">
+        <div class="col gy-4 mb-3 ">
+            <h2>Численное решение дифференциальных уравнений</h2>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <div class="container rounded shadow bg-light">
+                <div class="row text-center">
+                    <a class="col btn m-2 bg-gradient-animated text-white"
+                       href="./differential_equations/eulerRungeKutta.html">
+                        $$
+                        \begin{cases}
+                        t_{n+1}=t_{n}+h\\
+                        x_{n+1}=x_{n}+hf(x_{n},\ t_{n})
+                        \end{cases}
+                        \ \ \vert\
+                        \begin{cases}
+                        t_{n+1}=t_{n}+h\\
+                        x_{n+1}=x_{n}+h\sum_{i=1}^{s}b_{i}K_{i}
+                        \end{cases}
+                        $$
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="col m-2 text-center">
+                        Метод Эйлера, метод Рунге-Кутты.
                     </div>
                 </div>
             </div>

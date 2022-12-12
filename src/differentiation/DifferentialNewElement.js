@@ -101,7 +101,7 @@ class DifferentialNewElement {
         if (radioButtons[2].checked) {
           radioButtons[2].checked = false;
           radioButtons[1].checked = true;
-          this.updateInputFields(2)
+          this.updateInputFields(2);
         }
     }
   }
@@ -308,11 +308,31 @@ class DifferentialNewElement {
     responsiveTable.classList.add('table-responsive');
     responsiveTable.append(resultTable);
 
-    resultContainer.append(initialValuesDiv);
+    const graphContainer = document.createElement('div');
+    graphContainer.classList.add('container');
+
     resultContainer.append(responsiveTable);
-    resultContainer.append();
+    resultContainer.append(graphContainer);
+    resultContainer.append(initialValuesDiv);
 
     this.resultsSection.prepend(resultContainer);
+
+    const plots = [];
+    const plotX = solution[Object.keys(solution)[0]];
+    let plotY, plotName;
+    for (let expression in expressions) {
+      expression = parseInt(expression);
+      plotY = solution[Object.keys(solution)[expression + 1]];
+      plotName = `${Object.keys(solution)[expression + 1]}'(${Object.keys(solution)[0]})`;
+      plots.push({x: plotX, y: plotY, name: plotName});
+    }
+    Plotly.newPlot(
+        graphContainer,
+        plots,
+        {autosize: true},
+        {responsive: true},
+    );
+
     this.updateTex();
   }
 }

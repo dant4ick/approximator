@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "bootstrap": "^5.2.2",
-    "mathjs": "^11.3.2"
+    "mathjs": "^11.3.2",
+    "plotly": "^1.0.6"
   }
 }
