@@ -32,11 +32,18 @@ function gaussOptimalExclusion(matrix) {
 }
 
 function gaussJordan(matrix) {
-  matrix = gauss(matrix);
-  for (let row = matrix.length - 1; row >= 0; row--) {
-    for (let i = row - 1; i >= 0; i--) {
-      matrix[i] = matrix[i].map((cell, index) => {
-        return cell - (matrix[row][index] * matrix[i][row]);
+  for (let column = 0; column <= matrix.length - 1; column++) {
+    const normalMultiplier = 1 / matrix[column][column];
+    matrix[column] = matrix[column].map(cell => {
+      return math.round(cell * normalMultiplier, 10);
+    });
+
+    for (let row = 0; row <= matrix.length - 1; row++) {
+      if (column === row) {
+        continue;
+      }
+      matrix[row] = matrix[row].map((cell, index) => {
+        return cell - (matrix[column][index] * matrix[row][column]);
       });
     }
   }
