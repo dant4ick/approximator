@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор-вычислятор</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.3.1/math.js"
+            integrity="sha512-Q1qOFs0DNtp9bviP8uSyPm0d1ES7zw8BXZ7AF2XCWIVKHObK6U7mkMZ+SGOf1vF71zI/60lO+FjBTrzaYGRqnw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="../src/reloadTex.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+<body>
+<nav style="--bs-breadcrumb-divider: '>';">
+    <div class="container mt-5">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="../index.html">Главное меню</a></li>
+            <li class="breadcrumb-item active">Метод Гаусса с выбором главного элемента</li>
+        </ol>
+    </div>
+</nav>
+<div class="container bg-light rounded shadow p-3 mt-5 mb-5">
+    <div class="row justify-content-center align-items-center mb-3">
+        <div class="col-auto mb-2 mb-sm-0">
+            <div class="input-group input-group-sm">
+                <label class="input-group-text">Выбор по</label>
+
+                <input type="radio" class="btn-check" name="method-name" id="gauss" autocomplete="off" checked
+                       value="gauss">
+                <label class="btn btn-outline-secondary" for="gauss">Строки</label>
+
+                <input type="radio" class="btn-check" name="method-name" id="optimal" autocomplete="off"
+                       value="optimal">
+                <label class="btn btn-outline-secondary" for="optimal">Столбцы</label>
+
+                <input type="radio" class="btn-check" name="method-name" id="jordan" autocomplete="off"
+                       value="jordan">
+                <label class="btn btn-outline-secondary" for="jordan">Вся матрица</label>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div id="matrix" class="col">
+
+            <div id="r0" class="input-group">
+                <input type="text" id="r0-c0" class="form-control" placeholder="0" value="1">
+                <input type="text" id="r0-c1" class="form-control" placeholder="0" value="2">
+                <input type="text" id="r0-c2" class="form-control" placeholder="0" value="4">
+                <input type="text" id="r0-c3" class="form-control" placeholder="0" value="2">
+                <input type="text" id="r0-c4" class="form-control" placeholder="0" value="3">
+                <input type="text" id="r0-c5" class="form-control" placeholder="0" value="1">
+            </div>
+            <div id="r1" class="input-group">
+                <input type="text" id="r1-c0" class="form-control" placeholder="0" value="3">
+                <input type="text" id="r1-c1" class="form-control" placeholder="0" value="7">
+                <input type="text" id="r1-c2" class="form-control" placeholder="0" value="17">
+                <input type="text" id="r1-c3" class="form-control" placeholder="0" value="4">
+                <input type="text" id="r1-c4" class="form-control" placeholder="0" value="16">
+                <input type="text" id="r1-c5" class="form-control" placeholder="0" value="5">
+            </div>
+            <div id="r2" class="input-group">
+                <input type="text" id="r2-c0" class="form-control" placeholder="0" value="2">
+                <input type="text" id="r2-c1" class="form-control" placeholder="0" value="2">
+                <input type="text" id="r2-c2" class="form-control" placeholder="0" value="-1">
+                <input type="text" id="r2-c3" class="form-control" placeholder="0" value="12">
+                <input type="text" id="r2-c4" class="form-control" placeholder="0" value="3">
+                <input type="text" id="r2-c5" class="form-control" placeholder="0" value="1">
+            </div>
+            <div id="r3" class="input-group">
+                <input type="text" id="r3-c0" class="form-control" placeholder="0" value="4">
+                <input type="text" id="r3-c1" class="form-control" placeholder="0" value="8">
+                <input type="text" id="r3-c2" class="form-control" placeholder="0" value="16">
+                <input type="text" id="r3-c3" class="form-control" placeholder="0" value="9">
+                <input type="text" id="r3-c4" class="form-control" placeholder="0" value="15">
+                <input type="text" id="r3-c5" class="form-control" placeholder="0" value="5">
+            </div>
+            <div id="r4" class="input-group">
+                <input type="text" id="r4-c0" class="form-control" placeholder="0" value="3">
+                <input type="text" id="r4-c1" class="form-control" placeholder="0" value="6">
+                <input type="text" id="r4-c2" class="form-control" placeholder="0" value="12">
+                <input type="text" id="r4-c3" class="form-control" placeholder="0" value="6">
+                <input type="text" id="r4-c4" class="form-control" placeholder="0" value="10">
+                <input type="text" id="r4-c5" class="form-control" placeholder="0" value="4">
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-auto mb-2 mb-sm-0">
+            <div class="input-group input-group-sm">
+                <label class="input-group-text">Количество неизвестных<span id="size"
+                                                                            class="badge m-1 text-bg-secondary">5</span></label>
+
+                <button type="button" id="clear" class="btn btn-secondary">🧹</button>
+                <button type="button" id="minus" class="btn btn-outline-secondary">$-$</button>
+                <button type="button" id="plus" class="btn btn-outline-secondary">$+$</button>
+            </div>
+        </div>
+    </div>
+    <div class="row-cols-1">
+        <div class="col d-grid">
+            <button type="button" id="solve" class="btn btn-block bg-gradient-animated text-white">$\approx$</button>
+        </div>
+    </div>
+</div>
+<section id="results">
+    <div class="container">
+
+    </div>
+</section>
+<script src="../src/matrix/MatrixHandler.js"></script>
+<script>new Chosen();</script>
+<script src="../src/matrix/gauss.js"></script>
+</body>
+</html>

@@ -118,6 +118,16 @@ class MatrixHandler {
   }
 
   displayNewElem() {
+    return undefined;
+  }
+}
+
+class GaussClassic extends MatrixHandler {
+  constructor() {
+    super();
+  }
+
+  displayNewElem() {
     const resultContainer = document.createElement('div');
     resultContainer.classList.add('container', 'border', 'rounded', 'mb-3');
 
@@ -151,6 +161,81 @@ class MatrixHandler {
     resultContainer.innerText += `$$X=\\left(${this.matrixToTex(
         solveLinearEquations(resLinearEquations.A,
             resLinearEquations.B))}\\right)$$`;
+
+    this.resultsSection.prepend(resultContainer);
+    this.updateTex();
+  }
+}
+
+class Chosen extends MatrixHandler {
+  constructor() {
+    super();
+  }
+
+  displayNewElem() {
+    const resultContainer = document.createElement('div');
+    resultContainer.classList.add('container', 'border', 'rounded', 'mb-3');
+
+    const inputValues = this.getMatrixInputValues();
+
+    const linearEquations = matrixToLinearEquations(inputValues);
+
+    const methodName = this.getMethodName();
+
+    let result;
+    let resultMatrix;
+    let permutations;
+
+    switch (methodName) {
+      case 'gauss':
+        resultMatrix = gaussChosenRow(inputValues);
+        resultContainer.innerText = '$$\\mathtt{Выбор\\ по\\ строкам}$$';
+        break;
+      case 'optimal':
+        result = gaussChosenCol(inputValues);
+        resultMatrix = result.matrix;
+        permutations = result.permutations;
+        resultContainer.innerText = '$$\\mathtt{Выбор\\ по\\ столбцам}$$';
+        break;
+      case 'jordan':
+        result = gaussChosenAcrossMatrix(inputValues);
+        resultMatrix = result.matrix;
+        permutations = result.permutations;
+        resultContainer.innerText = '$$\\mathtt{Выбор\\ по\\ всей\\ матрице\\ (строки\\ и\\ столбцы)}$$';
+        break;
+    }
+
+    let resLinearEquations = matrixToLinearEquations(resultMatrix);
+
+    resultMatrix = roundMatrixValues(resultMatrix);
+
+    let solvedLinearEquations = (roundMatrixValues(
+        solveLinearEquations(resLinearEquations.A, resLinearEquations.B)));
+
+    if (permutations) {
+      solvedLinearEquations = rearrangeVectorMatrix(solvedLinearEquations,
+          permutations);
+      resLinearEquations = matrixToLinearEquations(
+          rearrangeCols(resultMatrix, permutations));
+    } else {
+      resLinearEquations = {
+        A: roundMatrixValues(resLinearEquations.A),
+        B: roundMatrixValues(resLinearEquations.B),
+      };
+    }
+
+    resultContainer.innerText += `$$\\tilde{A}=${this.linearEquationsToTex(
+        linearEquations.A, linearEquations.B)}\\sim${this.linearEquationsToTex(
+        resLinearEquations.A, resLinearEquations.B)}$$`;
+    if (permutations) {
+      resultContainer.innerText += '$$\\mathtt{Ступенчатая\\ матрица\\ с\\ переставленными\\ столбцами\\ имеет\\ вид:}$$';
+      const resultMatrixLinearEquations = matrixToLinearEquations(resultMatrix);
+      resultContainer.innerText += `$$${this.linearEquationsToTex(
+          resultMatrixLinearEquations.A, resultMatrixLinearEquations.B)}$$`;
+    }
+
+    resultContainer.innerText += `$$X=\\left(${this.matrixToTex(
+        solvedLinearEquations)}\\right)$$`;
 
     this.resultsSection.prepend(resultContainer);
     this.updateTex();
